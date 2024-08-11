@@ -1,6 +1,5 @@
-package com.example.iur1.ui.theme
+package de.iu.iur1.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
