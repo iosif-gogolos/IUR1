@@ -16,32 +16,25 @@ import com.example.iur1.ui.theme.IUR1Theme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            IUR1Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                            name = "Android",
-                            modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            SongCard(CurrentTitleInfo("No Longer Slaves", "Zach Williams (Live from Harding Prison"))
         }
     }
 }
 
+data class CurrentTitleInfo(val title: String, val interpret: String)
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-            text = "Hello $name!",
-            modifier = modifier
-    )
+fun SongCard(msg: CurrentTitleInfo){
+    Text(text = msg.title)
+    Text(text = msg.interpret)
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun GreetingPreview() {
-    IUR1Theme {
-        Greeting("Android")
-    }
+fun PreviewSongCard() {
+    SongCard(
+        msg = CurrentTitleInfo("Iosif", "Hey, save this song to favorites")
+
+    )
 }
