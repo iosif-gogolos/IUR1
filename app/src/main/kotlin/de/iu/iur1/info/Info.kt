@@ -1,18 +1,10 @@
-package com.example.iur1
+package de.iu.iur1.info
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.iur1.ui.theme.IUR1Theme
 
+/*
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +13,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+*/
+
+data class Song (
+    val titel: String,
+    val interpret: String
+)
 
 data class CurrentTitleInfo(val title: String, val interpret: String)
 
