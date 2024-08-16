@@ -71,16 +71,6 @@ fun IUR1() {
 fun IUR1NavigationBar(currentView: IUR1View, onNavigate: (IUR1View) -> Unit) {
     NavigationBar {
         NavigationBarItem(
-            selected = currentView == IUR1View.ACCOUNT,
-            onClick = { onNavigate.invoke(IUR1View.ACCOUNT) },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.AccountCircle,
-                    contentDescription = "Account"
-                )
-            },
-            label = { Text(text = "Account") })
-        NavigationBarItem(
             selected = currentView == IUR1View.RADIO,
             onClick = { onNavigate.invoke(IUR1View.RADIO) },
             icon = {
@@ -100,5 +90,15 @@ fun IUR1NavigationBar(currentView: IUR1View, onNavigate: (IUR1View) -> Unit) {
                 )
             },
             label = { Text(text = "Review") })
+        NavigationBarItem(
+            selected = currentView == IUR1View.ACCOUNT,
+            onClick = { onNavigate.invoke(IUR1View.ACCOUNT) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.AccountCircle,
+                    contentDescription = "Account"
+                )
+            },
+            label = { Text(text = "Account") })
     }
 }
