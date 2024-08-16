@@ -1,16 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
-    namespace = "com.example.iur1"
+    namespace = "de.iu.iur1"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.iur1"
-        minSdk = 24
+        applicationId = "de.iu.iur1"
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -64,4 +64,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.kotlinx.serialization.json)
 }
