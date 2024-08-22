@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 object PlaylistClient {
     private const val PLAYLIST_BASE_PATH = "http://10.0.2.2:30123/iur1/playlist/"
+    private const val REMOTE_PLAYLIST_BASE_PATH = ""
     private const val TODAY_CACHE_INTERVAL = 10
 
     private val client = HttpClient(Android)
