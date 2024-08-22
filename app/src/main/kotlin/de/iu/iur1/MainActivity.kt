@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import de.iu.iur1.profile.AccountView
 import de.iu.iur1.theme.IUR1Theme
 
 class MainActivity : ComponentActivity() {
@@ -57,7 +58,7 @@ fun IUR1() {
                         .padding(innerPadding)
                 ) {
                     when (currentView) {
-                        IUR1View.ACCOUNT -> {}
+                        IUR1View.ACCOUNT -> AccountView(onGoBack = {currentView = IUR1View.RADIO})
                         IUR1View.RADIO -> RadioView()
                         IUR1View.REVIEW -> {}
                     }
