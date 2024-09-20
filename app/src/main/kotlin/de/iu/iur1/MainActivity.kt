@@ -24,8 +24,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import dagger.hilt.android.AndroidEntryPoint
 import de.iu.iur1.profile.AccountView
 import de.iu.iur1.theme.IUR1Theme
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
