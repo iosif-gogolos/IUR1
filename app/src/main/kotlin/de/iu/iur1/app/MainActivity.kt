@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.Create
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Radio
 import androidx.compose.material.icons.outlined.RateReview
 import androidx.compose.material3.Icon
@@ -26,6 +24,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import de.iu.iur1.profile.AccountView
 import de.iu.iur1.theme.IUR1Theme
+import de.iu.iur1.feature.review.ui.ReviewView
+// Optional: Falls du NowPlayingHeader direkt in RadioView aufrufst, bleibt der Import dort.
+// import de.iu.iur1.feature.nowplaying.ui.NowPlayingHeader
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,36 +36,35 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-enum class IUR1View {
-    ACCOUNT, RADIO, REVIEW
-}
+enum class IUR1View { ACCOUNT, RADIO, REVIEW }
 
 @Composable
 fun IUR1() {
     var currentView by remember { mutableStateOf(IUR1View.RADIO) }
     var darkTheme by remember { mutableStateOf(true) }
+
     IUR1Theme(darkTheme = darkTheme) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
                 IUR1NavigationBar(
                     currentView = currentView,
-                    onNavigate = { view -> currentView = view })
-            },
-            content = { innerPadding ->
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                ) {
-                    when (currentView) {
-                        IUR1View.ACCOUNT -> AccountView(onGoBack = {currentView = IUR1View.RADIO})
-                        IUR1View.RADIO -> RadioView()
-                        IUR1View.REVIEW -> {}
-                    }
+                    onNavigate = { view -> currentView = view }
+                )
+            }
+        ) { innerPadding ->
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+                when (currentView) {
+                    IUR1View.ACCOUNT -> AccountView(onGoBack = { currentView = IUR1View.RADIO })
+                    IUR1View.RADIO   -> RadioView()     // liegt bei euch weiterhin im Paket de.iu.iur1
+                    IUR1View.REVIEW  -> ReviewView()     // <-- Review-Tab ist jetzt implementiert
                 }
-            },
-        )
+            }
+        }
     }
 }
 
@@ -73,33 +73,21 @@ fun IUR1NavigationBar(currentView: IUR1View, onNavigate: (IUR1View) -> Unit) {
     NavigationBar {
         NavigationBarItem(
             selected = currentView == IUR1View.RADIO,
-            onClick = { onNavigate.invoke(IUR1View.RADIO) },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Radio,
-                    contentDescription = "Radio"
-                )
-            },
-            label = { Text(text = "Radio") })
+            onClick = { onNavigate(IUR1View.RADIO) },
+            icon = { Icon(imageVector = Icons.Outlined.Radio, contentDescription = "Radio") },
+            label = { Text("Radio") }
+        )
         NavigationBarItem(
             selected = currentView == IUR1View.REVIEW,
-            onClick = { onNavigate.invoke(IUR1View.REVIEW) },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.RateReview,
-                    contentDescription = "Review"
-                )
-            },
-            label = { Text(text = "Review") })
+            onClick = { onNavigate(IUR1View.REVIEW) },
+            icon = { Icon(imageVector = Icons.Outlined.RateReview, contentDescription = "Review") },
+            label = { Text("Review") }
+        )
         NavigationBarItem(
             selected = currentView == IUR1View.ACCOUNT,
-            onClick = { onNavigate.invoke(IUR1View.ACCOUNT) },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.AccountCircle,
-                    contentDescription = "Account"
-                )
-            },
-            label = { Text(text = "Account") })
+            onClick = { onNavigate(IUR1View.ACCOUNT) },
+            icon = { Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = "Account") },
+            label = { Text("Account") }
+        )
     }
 }
