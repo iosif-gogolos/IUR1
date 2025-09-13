@@ -1,4 +1,4 @@
-package de.iu.iur1.playlist
+package de.iu.iur1.feature.playlist.data
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException

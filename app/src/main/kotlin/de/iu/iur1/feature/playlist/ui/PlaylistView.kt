@@ -1,4 +1,4 @@
-package de.iu.iur1.playlist
+package de.iu.iur1.feature.playlist.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +27,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import de.iu.iur1.OutlinedBox
+import de.iu.iur1.playlist.PlaylistClient
+import de.iu.iur1.feature.playlist.data.PlaylistDataState
+import de.iu.iur1.feature.playlist.data.PlaylistEntry
 import java.time.LocalDate
 
 enum class PlaylistState { LOADING, LOADED, EMPTY, ERROR }

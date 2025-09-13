@@ -1,4 +1,4 @@
-package de.iu.iur1.playlist
+package de.iu.iur1.feature.playlist.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

@@ -1,7 +1,9 @@
 package de.iu.iur1.playlist
 
 import android.util.Log
-import de.iu.iur1.nowplaying.data.NowPlayingClient.fetch
+import de.iu.iur1.feature.playlist.data.PlaylistData
+import de.iu.iur1.feature.playlist.data.PlaylistDataState
+import de.iu.iur1.feature.playlist.data.PlaylistStubData
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.request.get
@@ -16,7 +18,6 @@ import java.util.concurrent.ConcurrentHashMap
 object PlaylistClient {
     private const val USE_STUB_MODE = true
     private const val PLAYLIST_BASE_PATH = "http://10.0.2.2:30123/iur1/playlist/"
-    private const val REMOTE_PLAYLIST_BASE_PATH = ""
     private const val TODAY_CACHE_INTERVAL = 10
 
     private val client = HttpClient(Android)
@@ -26,29 +27,12 @@ object PlaylistClient {
     private var today: PlaylistDataState = PlaylistDataState.Error
     private var lastFetchOfToday: Long = Instant.now().toEpochMilli()
 
-    //TODO switch to demonstration mode if backend health check is not successful
-
-    private fun getStubData(date: LocalDate): PlaylistDataState {
-        val stubEntries = listOf(
-            PlaylistEntry("FEARLESS", "17:30"),
-            PlaylistEntry("Blue Flame", "17:27"),
-            PlaylistEntry("Thunder", "17:24"),
-            PlaylistEntry("Blinding Lights", "17:21")
-        )
-        return PlaylistDataState.Value(
-            PlaylistData(rating = 4, entries = stubEntries)
-        )
-    }
-
     suspend fun cachedOrFetch(date: LocalDate): PlaylistDataState {
+        if (USE_STUB_MODE) return PlaylistDataState.Value(PlaylistStubData.of(date))
+
         val dateNow = LocalDate.now()
-
-        if (USE_STUB_MODE) {
-            return getStubData(date)
-        }
-
         if (date == dateNow) {
-            if (lastFetchWasOverNSecondsAgo(TODAY_CACHE_INTERVAL) || today is PlaylistDataState.Error) {
+            if (lastFetchAfterInterval() || today is PlaylistDataState.Error) {
                 today = fetch(dateNow)
                 lastFetchOfToday = Instant.now().toEpochMilli()
             }
@@ -63,8 +47,6 @@ object PlaylistClient {
 
         return data
     }
-
-
 
     suspend fun fetch(date: LocalDate): PlaylistDataState {
         try {
@@ -90,11 +72,7 @@ object PlaylistClient {
         }
     }
 
-    fun clear() {
-        cache.clear()
-    }
-
-    private fun lastFetchWasOverNSecondsAgo(n: Int) =
-        (Instant.now().toEpochMilli() - lastFetchOfToday) > (n * 1000)
+    private fun lastFetchAfterInterval() =
+        (Instant.now().toEpochMilli() - lastFetchOfToday) > (TODAY_CACHE_INTERVAL * 1000)
 
 }

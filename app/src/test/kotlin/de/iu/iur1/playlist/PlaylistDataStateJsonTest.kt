@@ -1,5 +1,6 @@
 package de.iu.iur1.playlist
 
+import de.iu.iur1.feature.playlist.data.PlaylistData
 import org.junit.Test
 
 class PlaylistDataTest {
