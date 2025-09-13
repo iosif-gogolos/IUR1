@@ -1,4 +1,4 @@
-package de.iu.iur1.nowplaying.data
+package de.iu.iur1.feature.nowplaying.data
 
 import kotlinx.coroutines.delay
 import kotlin.random.Random
@@ -6,6 +6,7 @@ import kotlin.random.Random
 data class NowPlaying(val title: String, val artist: String)
 
 object NowPlayingClient {
+    private const val USE_STUB_MODE = true
 
     private val stubSongs = listOf(
         NowPlaying("Anti-Hero", "Taylor Swift"),
@@ -24,11 +25,15 @@ object NowPlayingClient {
         // Simuliere Netzwerk-Delay
         delay(500)
 
-        // Wähle einen zufälligen Stub-Song
-        val randomSong = stubSongs[Random.nextInt(stubSongs.size)]
+        if (USE_STUB_MODE) {
+            // Wähle einen zufälligen Stub-Song
+            val randomSong = stubSongs[Random.nextInt(stubSongs.size)]
 
-        // TODO: Echte HTTP-Anfrage implementieren
-        // Für jetzt: prominente Demo-Daten
-        randomSong
+            // Für jetzt: prominente Demo-Daten
+            randomSong
+        } else {
+            // TODO: Echte HTTP-Anfrage implementieren
+            NowPlaying("", "")
+        }
     }
 }

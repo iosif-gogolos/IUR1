@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.iu.iur1.core.ui.components.OutlinedBox
-import de.iu.iur1.nowplaying.data.NowPlayingClient
+import de.iu.iur1.feature.nowplaying.data.NowPlayingClient
 
 @Composable
 fun NowPlayingHeader() {
