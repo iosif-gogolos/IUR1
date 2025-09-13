@@ -40,8 +40,10 @@ enum class IUR1View { ACCOUNT, RADIO, REVIEW }
 
 @Composable
 fun IUR1() {
+    val darkTheme = androidx.compose.foundation.isSystemInDarkTheme()
+
     var currentView by remember { mutableStateOf(IUR1View.RADIO) }
-    var darkTheme by remember { mutableStateOf(true) }
+
 
     IUR1Theme(darkTheme = darkTheme) {
         Scaffold(
