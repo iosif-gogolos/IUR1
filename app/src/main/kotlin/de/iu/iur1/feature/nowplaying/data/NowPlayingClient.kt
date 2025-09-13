@@ -31,15 +31,4 @@ object NowPlayingClient {
         // Für jetzt: prominente Demo-Daten
         randomSong
     }
-
-    // Zusätzliche Methode für spezifische Stub-Songs
-    fun getCurrentStubSong(): NowPlaying = stubSongs.first()
-
-    // Methode um zwischen verschiedenen "Sendern" zu wechseln
-    fun getStubSongForStation(stationId: String): NowPlaying = when (stationId) {
-        "morning" -> NowPlaying("Good Morning Sunshine", "DJ Lisa")
-        "evening" -> NowPlaying("Evening Vibes", "Max Musik")
-        "rock" -> NowPlaying("Bohemian Rhapsody", "Queen")
-        else -> stubSongs[Random.nextInt(stubSongs.size)]
-    }
 }
