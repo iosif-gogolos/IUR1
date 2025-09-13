@@ -1,6 +1,7 @@
 package de.iu.iur1.playlist
 
 import android.util.Log
+import de.iu.iur1.nowplaying.data.NowPlayingClient.fetch
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.request.get
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.util.concurrent.ConcurrentHashMap
 
 object PlaylistClient {
+    private const val USE_STUB_MODE = true
     private const val PLAYLIST_BASE_PATH = "http://10.0.2.2:30123/iur1/playlist/"
     private const val REMOTE_PLAYLIST_BASE_PATH = ""
     private const val TODAY_CACHE_INTERVAL = 10
@@ -26,8 +28,25 @@ object PlaylistClient {
 
     //TODO switch to demonstration mode if backend health check is not successful
 
+    private fun getStubData(date: LocalDate): PlaylistDataState {
+        val stubEntries = listOf(
+            PlaylistEntry("FEARLESS", "17:30"),
+            PlaylistEntry("Blue Flame", "17:27"),
+            PlaylistEntry("Thunder", "17:24"),
+            PlaylistEntry("Blinding Lights", "17:21")
+        )
+        return PlaylistDataState.Value(
+            PlaylistData(rating = 4, entries = stubEntries)
+        )
+    }
+
     suspend fun cachedOrFetch(date: LocalDate): PlaylistDataState {
         val dateNow = LocalDate.now()
+
+        if (USE_STUB_MODE) {
+            return getStubData(date)
+        }
+
         if (date == dateNow) {
             if (lastFetchWasOverNSecondsAgo(TODAY_CACHE_INTERVAL) || today is PlaylistDataState.Error) {
                 today = fetch(dateNow)
@@ -44,6 +63,8 @@ object PlaylistClient {
 
         return data
     }
+
+
 
     suspend fun fetch(date: LocalDate): PlaylistDataState {
         try {

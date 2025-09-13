@@ -17,14 +17,10 @@ import de.iu.iur1.playlist.PlaylistView
 
 
 @Composable
-fun RadioView() = Column(
-    modifier = Modifier
-        .fillMaxSize()
-        .padding(5.dp)
-) {
-    OutlinedBox(heightFraction = 0.25f) {
-        Text(text = "Now Playing")
+fun RadioView() {
+    Column(Modifier.fillMaxSize().padding(16.dp)) {
+        de.iu.iur1.feature.nowplaying.ui.NowPlayingHeader()
+        Spacer(Modifier.height(16.dp))
+        de.iu.iur1.playlist.PlaylistView()
     }
-    Spacer(modifier = Modifier.height(10.dp))
-    PlaylistView()
 }

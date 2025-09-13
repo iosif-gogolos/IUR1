@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import de.iu.iur1.OutlinedBox
 import java.time.LocalDate
 
-
 enum class PlaylistState { LOADING, LOADED, EMPTY, ERROR }
 
 @Composable
