@@ -8,8 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import de.iu.iur1.review.data.NotificationsClient
-import de.iu.iur1.review.data.RatingsClient
+import de.iu.iur1.feature.review.data.NotificationsClient
+import de.iu.iur1.feature.review.data.RatingsClient
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
