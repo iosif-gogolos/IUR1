@@ -56,21 +56,25 @@ fun PlaylistView() {
     }
 
     OutlinedBox {
-        Column(
-            modifier = Modifier
+        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
+            Column(
+                modifier = Modifier.fillMaxSize().weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                when (playlistState) {
+                    PlaylistState.LOADING -> CircularProgressIndicator()
+                    PlaylistState.LOADED -> Playlist(playlistEntries.toList(), playlistRating)
+                    PlaylistState.EMPTY -> Text(text = "Keine Playlist für das ausgewählte Datum")
+                    PlaylistState.ERROR -> Text(text = "Die Playlist konnte nicht geladen werden")
+                }
+            }
+            Column(modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.85f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            when (playlistState) {
-                PlaylistState.LOADING -> CircularProgressIndicator()
-                PlaylistState.LOADED -> Playlist(playlistEntries.toList(), playlistRating)
-                PlaylistState.EMPTY -> Text(text = "Keine Playlist für das ausgewählte Datum")
-                PlaylistState.ERROR -> Text(text = "Die Playlist konnte nicht geladen werden")
+                .height(68.dp)) {
+                FilterButtons(onSelectFilter = { selectedDate = it })
             }
         }
-        FilterButtons(onSelectFilter = { selectedDate = it })
     }
 }
 
