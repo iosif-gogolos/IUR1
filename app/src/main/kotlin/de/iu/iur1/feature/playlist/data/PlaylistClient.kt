@@ -7,6 +7,7 @@ import de.iu.iur1.feature.playlist.data.PlaylistStubData
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.request.get
+import io.ktor.client.request.post
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.utils.io.errors.IOException
@@ -72,7 +73,15 @@ object PlaylistClient {
         }
     }
 
+    suspend fun rate(date: LocalDate, rating: Int): Boolean {
+        if (USE_STUB_MODE) {
+            Log.i("PlaylistClient", "Playlist rating $date $rating")
+            return true
+        }
+        val response = client.post("${PLAYLIST_BASE_PATH}/rate/${date}/${rating}")
+        return response.status == HttpStatusCode.OK
+    }
+
     private fun lastFetchAfterInterval() =
         (Instant.now().toEpochMilli() - lastFetchOfToday) > (TODAY_CACHE_INTERVAL * 1000)
-
 }
