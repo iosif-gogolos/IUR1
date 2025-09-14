@@ -55,7 +55,7 @@ fun PlaylistView() {
         }
     }
 
-    OutlinedBox {
+    OutlinedBox(heightFraction = 0.89f) {
         Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
             Column(
                 modifier = Modifier.fillMaxSize().weight(1f),
